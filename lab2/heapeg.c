@@ -1,4 +1,4 @@
-/* heapeg.c */
+/* heageg.c */
 /* Heap sbrk and brk example */
 #include <stdio.h>
 #include <unistd.h>
@@ -8,24 +8,26 @@ int main()
 {
         void *curr_brk, *tmp_brk = NULL;
 
-        printf("Welcome to sbrk example:%d\n", getpid());
+        printf("Heap probram break example, PID: %d\n", getpid());
 
         /* sbrk(0) gives current program break location */
         tmp_brk = curr_brk = sbrk(0);
-        printf("Program Break Location1:%p\n", curr_brk);
+        printf("1. Initial sbrk location (start of Heap): %p\n", curr_brk);
         getchar();
 
         /* brk(addr) increments/decrements program break location */
+        /* Set the brk (end of heap) by increase 4096 of sbrk */
         brk(curr_brk+4096);
 
         curr_brk = sbrk(0);
-        printf("Program break Location2:%p\n", curr_brk);
+        printf("2. Increase 4096 of sbrk. Heap (sbrk-brk) location: %p-%p\n", tmp_brk, curr_brk);
         getchar();
 
+        /* Return to the initial sbrk */
         brk(tmp_brk);
 
         curr_brk = sbrk(0);
-        printf("Program Break Location3:%p\n", curr_brk);
+        printf("3. Return all heap space, go back to initial sbrk location: %p\n", curr_brk);
         getchar();
 
         return 0;
