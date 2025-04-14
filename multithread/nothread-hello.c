@@ -1,5 +1,4 @@
 #include <stdio.h>
-//#include <pthread.h>
 #include <unistd.h>
 
 void* childthread(void* data)
@@ -12,14 +11,11 @@ void* childthread(void* data)
         printf("%s\n", str);
         sleep(1);
     }
-//    pthread_exit(NULL);
 }
 
 int main()
 {
     int i;
-//    pthread_t t;
-//    pthread_create(&t, NULL, childthread, "Hi, this is child thread.");
     childthread("Hi, this is child thread.");
 
     for(i = 0; i < 3; ++i)
@@ -28,6 +24,5 @@ int main()
         sleep(1);
     }
 
-//    pthread_join(t, NULL);
     return 0;
 }
